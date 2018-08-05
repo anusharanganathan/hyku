@@ -144,9 +144,6 @@ services:
       - db_migrate
     expose:
       - 3000
-    ports:
-      # - 3000
-      - 3000:3000
     networks:
       external:
       internal:
@@ -198,30 +195,9 @@ services:
       com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy: 'true'
     ports:
       - "80:80"
-      # - "8080:3000"
-      # - "443:443"
     networks:
       internal:
       external:
-
-  # lb:
-  #   image: dockercloud/haproxy:1.5.3
-  #   links:
-  #     - web
-  #   environment:
-  #     - DOCKER_TLS_VERIFY
-  #     - DOCKER_HOST
-  #     - DOCKER_CERT_PATH
-  #   ports:
-  #     - 8080:80
-  #     - 8443:443
-  #   volumes:
-  #     - /var/run/docker.sock:/var/run/docker.sock
-  #     # You must uncomment this line if and only if you are running docker-machine
-  #     # - $DOCKER_CERT_PATH:$DOCKER_CERT_PATH
-  #   networks:
-  #     internal:
-  #     external:
 
   redis:
     image: redis:3
