@@ -4,9 +4,9 @@
 # The mapping is described in `./config/initializers/config.rb`.
 #
 multitenancy:
-  enabled: false
-  default_host: # "%{tenant}.dev"
-  admin_host:
+  enabled: true
+  default_host: "%{tenant}.up2.digitalnest.co.uk"
+  admin_host: "up2.digitalnest.co.uk"
   admin_only_tenant_creation: true
 
 ssl_configured: false
