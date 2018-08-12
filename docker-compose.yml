@@ -202,6 +202,18 @@ services:
       - certs:/etc/letsencrypt
       - certs-data:/data/letsencrypt
 
+  cert_server:
+    image: certbot/certbot
+    command: "certonly -n --agree-tos --email hyku@example.com --no-eff-email --keep --test-cert --webroot --webroot-path=/data/letsencrypt -d 'up2.digitalnest.co.uk,repo1.up2.digitalnest.co.uk,repo2.up2.digitalnest.co.uk'"
+    depends_on:
+      - web_server
+    networks:
+      internal:
+      external:
+    volumes:
+      - certs:/etc/letsencrypt
+      - certs-data:/data/letsencrypt
+
   redis:
     image: redis:3
     command: redis-server
