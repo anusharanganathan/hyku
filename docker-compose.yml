@@ -205,7 +205,8 @@ services:
   cert_server:
     image: certbot/certbot
     command: "certonly -n --agree-tos --email hyku@example.com --no-eff-email --keep --test-cert --webroot --webroot-path=/data/letsencrypt -d 'up2.digitalnest.co.uk,repo1.up2.digitalnest.co.uk,repo2.up2.digitalnest.co.uk'"
-    # TODO : Need to add a post hook to restart nginx (web_server)
+    # TODO : Need to add a post hook to command for restarting nginx (web_server)
+    # TODO : Add cron to renew certificate and restart nginx
     depends_on:
       - web_server
     networks:
