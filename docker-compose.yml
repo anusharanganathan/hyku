@@ -12,6 +12,7 @@ volumes:
   app:
   certs:
   certs-data:
+  self-signed:
 
 networks:
   external:
@@ -199,6 +200,7 @@ services:
       internal:
       external:
     volumes:
+      - self-signed:/etc/selfsigned
       - certs:/etc/letsencrypt
       - certs-data:/data/letsencrypt
 
