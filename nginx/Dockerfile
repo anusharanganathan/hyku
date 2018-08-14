@@ -16,11 +16,19 @@ RUN mkdir log
 # copy over static assets
 COPY public public/
 
-# Copy Nginx config template
+# Copy Nginx config
 COPY nginx/nginx.conf /tmp/docker.nginx
+
+# Copy script to generate self signed certificate
 COPY nginx/self_signed.sh /tmp/self_signed.sh
+
+# Copy Nginx config for certbot ssl
+COPY nginx/nginx_ssl.conf /tmp/nginx_ssl.conf
+
+# Copy script to replace nginx config with certbot ssl
+# COPY nginx/add_ssl_conf.sh /tmp/add_ssl_conf.sh
+
 RUN chmod +x /tmp/self_signed.sh
-# RUN /tmp/self_signed.sh
 
 # substitute variable references in the Nginx config template for real values from the environment
 # put the final config in its place
@@ -29,5 +37,5 @@ RUN envsubst '$RAILS_ROOT' < /tmp/docker.nginx > /etc/nginx/conf.d/default.conf
 EXPOSE 80 443
 
 # Use the "exec" form of CMD so Nginx shuts down gracefully on SIGTERM (i.e. `docker stop`)
-CMD [ "/tmp/self_signed.sh", "&&", "nginx", "-g", "daemon off;" ]
+CMD [ "/tmp/self_signed.sh" ]
 

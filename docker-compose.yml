@@ -206,7 +206,7 @@ services:
 
   cert_server:
     image: certbot/certbot
-    command: "certonly -n --agree-tos --email hyku@example.com --no-eff-email --keep --test-cert --webroot --webroot-path=/data/letsencrypt -d 'up2.digitalnest.co.uk,repo1.up2.digitalnest.co.uk,repo2.up2.digitalnest.co.uk'"
+    command: "certonly -n --agree-tos --email hyku@example.com --no-eff-email --keep --test-cert --webroot --webroot-path=/data/letsencrypt -d 'up2.digitalnest.co.uk,repo1.up2.digitalnest.co.uk,repo2.up2.digitalnest.co.uk' --post-hook '/tmp/add_ssl_conf.sh'"
     # TODO : Need to add a post hook to command for restarting nginx (web_server)
     # TODO : Add cron to renew certificate and restart nginx
     depends_on:
@@ -217,6 +217,8 @@ services:
     volumes:
       - certs:/etc/letsencrypt
       - certs-data:/data/letsencrypt
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ${PWD}/nginx/add_ssl_conf.sh:/tmp/add_ssl_conf.sh
 
   redis:
     image: redis:3
