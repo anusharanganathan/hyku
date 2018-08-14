@@ -1,0 +1,10 @@
+FROM docker
+
+RUN apk add --no-cache bash
+
+# Copy scripts
+COPY nginx/manage_certs.sh /tmp/manage_certs.sh
+
+CMD ["/tmp/manage_certs.sh"]
+
+# CMD ["tail", "-F", "/dev/null"]

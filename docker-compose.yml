@@ -130,7 +130,6 @@ services:
   web:
     extends:
       service: app
-    # command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails server -p 3000 -b '0.0.0.0'"
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec puma -C config/puma.rb"
     depends_on:
       - db
@@ -191,8 +190,6 @@ services:
       - web
     depends_on:
       - web
-    labels:
-      com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy: 'true'
     ports:
       - 80:80
       - 443:443
@@ -204,10 +201,9 @@ services:
       - certs:/etc/letsencrypt
       - certs-data:/data/letsencrypt
 
-  cert_server:
+  get_cert:
     image: certbot/certbot
-    command: "certonly -n --agree-tos --email hyku@example.com --no-eff-email --keep --test-cert --webroot --webroot-path=/data/letsencrypt -d 'up2.digitalnest.co.uk,repo1.up2.digitalnest.co.uk,repo2.up2.digitalnest.co.uk' --post-hook '/tmp/add_ssl_conf.sh'"
-    # TODO : Need to add a post hook to command for restarting nginx (web_server)
+    command: "certonly -n --agree-tos --email hyku@digitalnest.co.uk --no-eff-email --keep --test-cert --webroot --webroot-path=/data/letsencrypt -d 'up2.digitalnest.co.uk,repo1.up2.digitalnest.co.uk,repo2.up2.digitalnest.co.uk' --post-hook '/tmp/cert_create_status.sh'"
     # TODO : Add cron to renew certificate and restart nginx
     depends_on:
       - web_server
@@ -217,8 +213,19 @@ services:
     volumes:
       - certs:/etc/letsencrypt
       - certs-data:/data/letsencrypt
+      - ${PWD}/nginx/cert_create_status.sh:/tmp/cert_create_status.sh
+
+  cert_manager:
+    build:
+      context: .
+      dockerfile: ./nginx/cert-manager-Dockerfile
+    depends_on:
+      - get_cert
+    privileged: true
+    volumes:
+      - certs:/etc/letsencrypt
+      - certs-data:/data/letsencrypt
       - /var/run/docker.sock:/var/run/docker.sock
-      - ${PWD}/nginx/add_ssl_conf.sh:/tmp/add_ssl_conf.sh
 
   redis:
     image: redis:3
