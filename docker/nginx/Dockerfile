@@ -17,13 +17,13 @@ RUN mkdir log
 COPY public public/
 
 # Copy Nginx config
-COPY nginx/nginx.conf /tmp/docker.nginx
+COPY docker/nginx/nginx.conf /tmp/docker.nginx
 
 # Copy script to generate self signed certificate
-COPY nginx/self_signed.sh /tmp/self_signed.sh
+COPY docker/nginx/self_signed.sh /tmp/self_signed.sh
 
 # Copy Nginx config for certbot ssl
-COPY nginx/nginx_ssl.conf /tmp/nginx_ssl.conf
+COPY docker/nginx/nginx_ssl.conf /tmp/nginx_ssl.conf
 
 RUN chmod +x /tmp/self_signed.sh
 

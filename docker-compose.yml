@@ -185,7 +185,7 @@ services:
   web_server:
     build:
       context: .
-      dockerfile: ./nginx/Dockerfile
+      dockerfile: ./docker/nginx/Dockerfile
     links:
       - web
     depends_on:
@@ -206,7 +206,7 @@ services:
     # command: "certonly -n --agree-tos --email hyku@digitalnest.co.uk --no-eff-email --keep --test-cert --webroot --webroot-path=/data/letsencrypt -d 'up2.digitalnest.co.uk,repo1.up2.digitalnest.co.uk,repo2.up2.digitalnest.co.uk' --post-hook '/tmp/cert_create_status.sh'"
     build:
       context: .
-      dockerfile: ./certbot/Dockerfile
+      dockerfile: ./docker/certbot/Dockerfile
     # TODO : Add cron to renew certificate and restart nginx
     depends_on:
       - web_server
@@ -216,12 +216,11 @@ services:
     volumes:
       - certs:/etc/letsencrypt
       - certs-data:/data/letsencrypt
-      - ${PWD}/nginx/cert_create_status.sh:/tmp/cert_create_status.sh
 
   cert_manager:
     build:
       context: .
-      dockerfile: ./nginx/cert-manager-Dockerfile
+      dockerfile: ./docker/certbot/cert-manager-Dockerfile
     depends_on:
       - get_cert
     privileged: true

@@ -1,0 +1,17 @@
+FROM docker
+
+RUN apk add --no-cache bash
+
+# RUN apk update && apk add tzdata &&\
+#    cp /usr/share/zoneinfo/Europe/London /etc/localtime &&\
+#    echo "Europe/London" > /etc/timezone &&\
+#    apk del tzdata && rm -rf /var/cache/apk/*
+
+# CMD chown root:root /etc/crontabs/root && /usr/sbin/crond -f
+
+# Copy scripts
+COPY docker/certbot/manage_certs.sh /tmp/manage_certs.sh
+
+# CMD ["/tmp/manage_certs.sh"]
+
+CMD ["sh", "-c", "/tmp/manage_certs.sh ; tail -F /dev/null"]
