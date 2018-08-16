@@ -183,6 +183,8 @@ services:
       - db
 
   web_server:
+    env_file:
+      - ./docker/.docker_env
     build:
       context: .
       dockerfile: ./docker/nginx/Dockerfile
@@ -204,6 +206,8 @@ services:
   get_cert:
     # image: certbot/certbot
     # command: "certonly -n --agree-tos --email hyku@digitalnest.co.uk --no-eff-email --keep --test-cert --webroot --webroot-path=/data/letsencrypt -d 'up2.digitalnest.co.uk,repo1.up2.digitalnest.co.uk,repo2.up2.digitalnest.co.uk' --post-hook '/tmp/cert_create_status.sh'"
+    env_file:
+      - ./docker/.docker_env
     build:
       context: .
       dockerfile: ./docker/certbot/Dockerfile
@@ -218,6 +222,8 @@ services:
       - certs-data:/data/letsencrypt
 
   cert_manager:
+    env_file:
+      - docker/.docker_env
     build:
       context: .
       dockerfile: ./docker/certbot/cert-manager-Dockerfile

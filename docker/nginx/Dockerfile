@@ -4,10 +4,10 @@ FROM nginx
 RUN apt-get update -qq && apt-get -y install apache2-utils openssl
 
 # establish where Nginx should look for files
-ENV RAILS_ROOT /var/www/web_server
+ENV WEB_ROOT /var/www/web_server
 
 # Set our working directory inside the image
-WORKDIR $RAILS_ROOT
+WORKDIR $WEB_ROOT
 
 # create log directory
 RUN rm -rf log
@@ -17,22 +17,17 @@ RUN mkdir log
 COPY public public/
 
 # Copy Nginx config
-COPY docker/nginx/nginx.conf /tmp/docker.nginx
-
-# Copy script to generate self signed certificate
-COPY docker/nginx/self_signed.sh /tmp/self_signed.sh
+COPY ./docker/nginx/nginx.conf /data/nginx.conf
 
 # Copy Nginx config for certbot ssl
-COPY docker/nginx/nginx_ssl.conf /tmp/nginx_ssl.conf
+COPY ./docker/nginx/nginx_ssl.conf /data/nginx_ssl.conf
 
-RUN chmod +x /tmp/self_signed.sh
-
-# substitute variable references in the Nginx config template for real values from the environment
-# put the final config in its place
-RUN envsubst '$RAILS_ROOT' < /tmp/docker.nginx > /etc/nginx/conf.d/default.conf
+# Copy scripts
+COPY ./docker/nginx/self_signed.sh /data/self_signed.sh
+RUN chmod +x /data/self_signed.sh
 
 EXPOSE 80 443
 
 # Create self signed certificate and start nginx
-CMD [ "/tmp/self_signed.sh" ]
+CMD [ "sh", "-c", "/data/self_signed.sh; tail -f/dev/null;" ]
 
