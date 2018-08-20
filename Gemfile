@@ -121,3 +121,5 @@ gem 'sidekiq'
 gem 'secure_headers'
 
 gem 'honeybadger', '~> 3.0'
+
+gem 'omniauth-shibboleth'
