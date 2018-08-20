@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Start cron
+/usr/sbin/cron
+
 # Create self-signed certificates
 sh -c "/data/self_signed.sh"
 
