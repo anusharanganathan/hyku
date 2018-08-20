@@ -1,17 +1,17 @@
 #!/bin/bash
-if [ -e /data/letsencrypt/cert_installed ]
+if [ -f /etc/letsencrypt/live/$DOMAIN/fullchain.pem ] && \
+   [ -f /etc/letsencrypt/live/$DOMAIN/privkey.pem ] && \
+   [ -f /etc/letsencrypt/live/$DOMAIN/chain.pem ]
 then
-  # Copy certbot nginx conf files and restart nginx
+  # Let's Encrypt certificates exist
 
-  echo "Copying certbot nginx conf"
-  docker exec hyku_web_server_1 bash -c 'envsubst '"'"'$DOMAIN'"'"' < /data/nginx_ssl.conf > /etc/nginx/conf.d/default.conf'
+  # Copy Let's Encrypt nginx conf files and restart nginx
+  echo "Copying Let's Encrypt nginx conf"
+  bash -c 'envsubst '"'"'$DOMAIN'"'"' < /data/nginx_ssl.conf > /etc/nginx/conf.d/default.conf'
 
   echo "Reload nginx"
-  docker exec hyku_web_server_1 nginx -s reload
+  nginx -s reload
 
-  # Do not delete status file. We need the certbot ssl config file copied
-  # rm /data/letsencrypt/cert_installed
-
-  # Start cron to renew certificate. Run certbot renew using certbot service
-  # If cert_renew_status, reload nginx
+  # Set cron
+  crontab /data/cron_data
 fi

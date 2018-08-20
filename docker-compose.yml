@@ -188,6 +188,10 @@ services:
     build:
       context: .
       dockerfile: ./docker/nginx/Dockerfile
+      args:
+        - DOMAIN=up2.digitalnest.co.uk
+        - TENANTS=repo1 repo2
+        - EMAIL=test@digitalnest.co.uk
     links:
       - web
     depends_on:
@@ -199,41 +203,8 @@ services:
       internal:
       external:
     volumes:
-      - self-signed:/etc/selfsigned
-      - certs:/etc/letsencrypt
+      - certs:/etc/certs
       - certs-data:/data/letsencrypt
-
-  get_cert:
-    # image: certbot/certbot
-    # command: "certonly -n --agree-tos --email hyku@digitalnest.co.uk --no-eff-email --keep --test-cert --webroot --webroot-path=/data/letsencrypt -d 'up2.digitalnest.co.uk,repo1.up2.digitalnest.co.uk,repo2.up2.digitalnest.co.uk' --post-hook '/tmp/cert_create_status.sh'"
-    env_file:
-      - ./docker/.docker_env
-    build:
-      context: .
-      dockerfile: ./docker/certbot/Dockerfile
-    # TODO : Add cron to renew certificate and restart nginx
-    depends_on:
-      - web_server
-    networks:
-      internal:
-      external:
-    volumes:
-      - certs:/etc/letsencrypt
-      - certs-data:/data/letsencrypt
-
-  cert_manager:
-    env_file:
-      - docker/.docker_env
-    build:
-      context: .
-      dockerfile: ./docker/certbot/cert-manager-Dockerfile
-    depends_on:
-      - get_cert
-    privileged: true
-    volumes:
-      - certs:/etc/letsencrypt
-      - certs-data:/data/letsencrypt
-      - /var/run/docker.sock:/var/run/docker.sock
 
   redis:
     image: redis:3

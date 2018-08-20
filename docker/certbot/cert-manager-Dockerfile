@@ -1,11 +1,11 @@
 FROM docker
 
-RUN apk add --no-cache bash
+RUN apk update && apk add --no-cache bash
 
-# RUN apk update && apk add tzdata &&\
-#    cp /usr/share/zoneinfo/Europe/London /etc/localtime &&\
-#    echo "Europe/London" > /etc/timezone &&\
-#    apk del tzdata && rm -rf /var/cache/apk/*
+# RUN apk add tzdata &&\
+#   cp /usr/share/zoneinfo/Europe/London /etc/localtime &&\
+#   echo "Europe/London" > /etc/timezone &&\
+#   apk del tzdata && rm -rf /var/cache/apk/*
 
 # CMD chown root:root /etc/crontabs/root && /usr/sbin/crond -f
 

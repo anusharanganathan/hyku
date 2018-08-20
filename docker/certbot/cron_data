@@ -7,6 +7,5 @@
 # │ │ │ │ │
 # │ │ │ │ │
 # * * * * *  command to execute
-# 10 1 */9 * * sleep 464s ; bash /data/cert_renew.sh  >> /dev/stdout.log 2>&1
-0 */12 * * * sleep 464s ; docker exec hyku_get_cert_1 certbot -q renew --post-hook '/data/cert_renew_status.sh' >> /dev/stdout.log 2>&1
+0 */5 * * * * sleep 464s ; certbot -q renew --post-hook 'nginx -s reload' >> /dev/stdout.log 2>&1
 
