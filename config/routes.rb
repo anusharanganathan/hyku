@@ -25,7 +25,10 @@ Rails.application.routes.draw do
 
   root 'hyrax/homepage#index'
 
-  devise_for :users, controllers: { invitations: 'hyku/invitations', registrations: 'hyku/registrations', omniauth_callbacks: "omniauthcallbacks" }, :skip => [:sessions]
+  devise_for :users, controllers: {
+    invitations: 'hyku/invitations',
+    registrations: 'hyku/registrations',
+    omniauth_callbacks: "omniauthcallbacks" } #, :skip => [:sessions]
   # devise_for :users, :controllers => {  }, :skip => [:sessions]
   mount Qa::Engine => '/authorities'
 
