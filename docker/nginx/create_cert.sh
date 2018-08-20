@@ -1,4 +1,5 @@
 #!/bin/sh
+echo "Getting certificate";
 
 # function to add domains
 add_domains() {
@@ -11,8 +12,7 @@ add_domains() {
 }
 
 domains=$(add_domains);
-echo ${domains}
-echo "Getting certificate";
+echo ${domains};
 
 certbot certonly -n --agree-tos --no-eff-email --keep --test-cert \
   --email "$EMAIL" \

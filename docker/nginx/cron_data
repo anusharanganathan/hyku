@@ -7,5 +7,5 @@
 # │ │ │ │ │
 # │ │ │ │ │
 # * * * * *  command to execute
-0 */5 * * * sleep 464s ; certbot -q renew --post-hook 'nginx -s reload' >> /dev/stdout.log 2>&1
+*/5 * * * * certbot renew --post-hook 'nginx -s reload' >> /dev/stdout.log 2>&1
 
