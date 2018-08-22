@@ -32,7 +32,7 @@ COPY docker/nginx/install_and_manage_cert.sh /data/install_and_manage_cert.sh
 RUN chmod +x /data/*.sh
 
 # Copy Shibboleth2.xml
-COPY ./docker/nginx/shibboleth2.xml /etc/shibboleth/
+COPY ./docker/nginx/shibboleth2.xml /data/shibboleth2.xml
 
 # COPY Cron data
 COPY ./docker/nginx/cron_data /data/cron_data

@@ -22,5 +22,8 @@ sh -c "/data/install_and_manage_cert.sh"
 # Stop NGinx. Let supervisor manage NGinx
 /usr/sbin/nginx -s stop
 
+# Setup shibboleth xml file
+envsubst '$SUBDOMAIN1' < /data/shibboleth2.xml > /etc/shibboleth/shibboleth2.xml
+
 # Start supervisor
 /usr/bin/supervisord -n -c /etc/supervisor/supervisord.conf
