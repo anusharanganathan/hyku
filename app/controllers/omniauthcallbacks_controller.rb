@@ -12,7 +12,8 @@ class OmniauthcallbacksController < Devise::OmniauthCallbacksController
   ## when shib login fails
   def failure
     ## redirect them to the devise local login page
-    redirect_to new_local_user_session_path, :notice => "Shibboleth isn't available - local login only"
+    # redirect_to new_local_user_session_path, :notice => "Shibboleth isn't available - local login only"
+    redirect_to root_path, :notice => "Shibboleth isn't available - local login only"
   end
 
 end
