@@ -13,5 +13,5 @@ else
 fi
 
 # Substitute environment variables in the Nginx config file and copy it
-envsubst '$$DOMAIN' < /data/nginx.conf > /etc/nginx/conf.d/default.conf
+envsubst '$$DOMAIN' < /data/nginx_self_signed.conf > /etc/nginx/conf.d/default.conf
 

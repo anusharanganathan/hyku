@@ -1,3 +1,4 @@
 DOMAIN=up2.digitalnest.co.uk
 TENANTS=repo1 repo2
 EMAIL=test@digitalnest.co.uk
+SUBDOMAIN1=repo1.up2.digitalnest.co.uk

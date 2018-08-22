@@ -17,7 +17,7 @@ echo "starting NGinx in daemon mode"
 sh -c "/data/create_cert.sh"
 
 # Manage CA certificates
-sh -c "/data/manage_cert.sh"
+sh -c "/data/install_and_manage_cert.sh"
 
 # Stop NGinx. Let supervisor manage NGinx
 /usr/sbin/nginx -s stop

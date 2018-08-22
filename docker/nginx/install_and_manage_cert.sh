@@ -7,7 +7,8 @@ then
 
   # Copy Let's Encrypt nginx conf files
   echo "Copying Let's Encrypt nginx conf"
-  bash -c 'envsubst '"'"'$DOMAIN'"'"' < /data/nginx_ssl.conf > /etc/nginx/conf.d/default.conf'
+  bash -c 'envsubst '"'"'$DOMAIN $SUBDOMAIN1'"'"' < /data/nginx_ca_shib.conf > /etc/nginx/conf.d/default.conf'
+  bash -c 'envsubst '"'"'$DOMAIN'"'"' < /data/ssl-ca > /etc/nginx/include.d/ssl-ca'
 
   # Reload nginx
   echo "Reload nginx"
