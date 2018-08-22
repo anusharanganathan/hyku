@@ -3,6 +3,9 @@
 # Start cron
 /usr/sbin/cron
 
+# Generate shibboleth private key
+/usr/sbin/shib-keygen
+
 # Create self-signed certificates
 sh -c "/data/self_signed.sh"
 

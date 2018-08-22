@@ -19,6 +19,7 @@ COPY public public/
 # Copy Nginx config files
 COPY ./docker/nginx/nginx.conf /data/nginx.conf
 COPY ./docker/nginx/nginx_ssl.conf /data/nginx_ssl.conf
+COPY ./docker/nginx/shib_clear_headers /etc/nginx/shib_clear_headers
 
 # Copy scripts
 COPY ./docker/nginx/start.sh /data/start.sh
@@ -26,6 +27,9 @@ COPY ./docker/nginx/self_signed.sh /data/self_signed.sh
 COPY ./docker/nginx/create_cert.sh /data/create_cert.sh
 COPY ./docker/nginx/manage_cert.sh /data/manage_cert.sh
 RUN chmod +x /data/*.sh
+
+# Copy Shibboleth2.xml
+COPY ./docker/nginx/shibboleth2.xml /etc/shibboleth/
 
 # COPY Cron data
 COPY ./docker/nginx/cron_data /data/cron_data
