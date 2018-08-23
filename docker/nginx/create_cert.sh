@@ -14,7 +14,12 @@ add_domains() {
 domains=$(add_domains);
 echo ${domains};
 
-certbot certonly -n --agree-tos --no-eff-email --keep --test-cert \
+test_cert="";
+if [ "$USE_TEST_CERT" = true ] ; then
+    test_cert="--test-cert";
+fi
+
+certbot certonly -n --agree-tos --no-eff-email --keep $test_cert \
   --email "$EMAIL" \
   --webroot --webroot-path=/data/letsencrypt \
   -d "$domains"

@@ -1,4 +1,7 @@
 DOMAIN=up2.digitalnest.co.uk
 TENANTS=repo1 repo2
 EMAIL=test@digitalnest.co.uk
+USE_TEST_CERT=true
+USE_SHIBBOLETH=true
+SHIBBOLETH_TENANT=repo1
 SUBDOMAIN1=repo1.up2.digitalnest.co.uk
