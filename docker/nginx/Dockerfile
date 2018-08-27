@@ -22,6 +22,7 @@ COPY docker/nginx/nginx_self_signed_shib.conf /data/nginx_self_signed_shib.conf
 COPY docker/nginx/nginx_ca.conf /data/nginx_ca.conf
 COPY docker/nginx/nginx_ca_shib.conf /data/nginx_ca_shib.conf
 COPY docker/nginx/shib_clear_headers /etc/nginx/shib_clear_headers
+COPY docker/nginx/shib_fastcgi_params /etc/nginx/shib_fastcgi_params
 COPY docker/nginx/nginx_conf_files /etc/nginx/include.d/
 COPY docker/nginx/nginx_conf_files/ssl-ca /data/ssl-ca
 
