@@ -292,9 +292,16 @@ Devise.setup do |config|
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
   config.omniauth :shibboleth, {
     :uid_field => 'eppn',
+    # :debug => true,
+    :request_type => :header,
+    # :uid_field => 'HTTP_EPPN',
+    # :shib_session_id_field => 'HTTP_SHIB_SESSION_ID',
+    # :shib_application_id_field => 'HTTP_SHIB_APPLICATION_ID',
+    # :uid_field => 'HTTP_EPPN',
+    # :name_field => 'HTTP_EPPN',
     :info_fields => {
       ## affiliation info from testshib.org IDP
-      :affiliation => lambda {|request_param| request_param.call('unscoped-affiliation').split(';')},
+      # :affiliation => lambda {|request_param| request_param.call('unscoped-affiliation').split(';')},
     },
   }
   # ==> Warden configuration

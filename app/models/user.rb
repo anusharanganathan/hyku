@@ -17,15 +17,19 @@ class User < ApplicationRecord
 
   before_create :add_default_roles
 
-  ## allow omniauth (including shibboleth) logins - this will create a local user based on an omniauth/shib login
-  ## if they haven't logged in before
+  # allow omniauth (including shibboleth) logins
+  #   this will create a local user based on an omniauth/shib login
+  #   if they haven't logged in before
   def self.from_omniauth(auth)
-    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
-      user.provider = auth.provider
-      user.uid = auth.uid
-      user.email = auth.uid
-      user.password = Devise.friendly_token[0,20]
-    end
+    Rails.logger.debug "auth = #{auth.inspect}"
+    # Uncomment the debugger above to capture what a shib auth object looks like for testing
+    user = where(provider: auth[:provider], uid: auth[:uid]).first_or_create
+    user.display_name = auth[:name]
+    user.uid = auth[:uid]
+    user.email = auth[:uid]
+    user.password = Devise.friendly_token[0,20]
+    user.save
+    user
   end
 
   # Method added by Blacklight; Blacklight uses #to_s on your
