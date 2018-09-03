@@ -5,8 +5,8 @@
 #
 multitenancy:
   enabled: true
-  default_host: "%{tenant}.up2.digitalnest.co.uk"
-  admin_host: "up2.digitalnest.co.uk"
+  default_host: "%{tenant}.$DOMAIN"
+  admin_host: "$DOMAIN"
   admin_only_tenant_creation: true
 
 ssl_configured: false
