@@ -105,7 +105,8 @@ services:
       internal:
 
   app:
-    build: .
+    build:
+      context: .
       args:
         # Default host for multi tenancy
         - DOMAIN=up2.digitalnest.co.uk
@@ -151,8 +152,6 @@ services:
     networks:
       external:
       internal:
-    volumes:
-      - ./:/data
 
   workers:
     extends:
