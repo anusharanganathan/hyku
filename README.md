@@ -45,6 +45,10 @@ We distribute a `docker-compose.yml` configuration for running the Hyku stack an
 docker-compose up -d
 ```
 
+The docker build includes support for ssl certificates using Let's encrypt and authentication using Shibboleth. These would need to be configured. See [Configuration options for Nginx, Certbot and Shibboleth using Docker](https://github.com/anusharanganathan/hyku/wiki/Configuration-options-for-Nginx,-Certbot-and-Shibboleth-using-Docker).
+
+If you would like to understand the docker setup for nginx, certbot and shibboleth, it's documented at [Adding Shibboleth authentication to Hyku](https://github.com/anusharanganathan/hyku/wiki/Adding-Shibboleth-authentication-to-Hyku)
+
 ### With Vagrant
 
 The [samvera-vagrant project](https://github.com/samvera-labs/samvera-vagrant) provides another simple way to get started "kicking the tires" of Hyku (and [Hyrax](http://hyr.ax/)), making it easy and quick to spin up Hyku. (Note that this is not for production or production-like installations.) It requires [VirtualBox](https://www.virtualbox.org/) and [Vagrant](https://www.vagrantup.com/).
